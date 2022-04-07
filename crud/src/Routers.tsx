@@ -1,5 +1,4 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Footer from "./components/footer/Footer";
 import Header from "./components/header/Header";
 import AuthProvider from "./context/AuthContext";
 import Address from "./pages/address/Address";
@@ -13,14 +12,13 @@ const Routers = () => {
         <BrowserRouter>
           <AuthProvider>
             <Header/>
-              <Routes>
-                <Route path="/" element={<Home/>} />
-                <Route path="/login" element={<Login />} />
-                <Route path="/users" element={<User/>}/>
-                <Route path="/address" element={<Address/>} />
-                <Route path="*" element={<NotFound/>} />
-              </Routes>
-            <Footer/>
+            <Routes>
+              <Route path="/" element={<Home/>} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/users" element={<User/>}/>
+              <Route path="/address" element={<Address/>} />
+              <Route path="*" element={<NotFound/>} />
+            </Routes>
           </AuthProvider>
         </BrowserRouter>
     )

@@ -1,25 +1,24 @@
-import { useNavigate } from 'react-router-dom'
-import IsLogged from '../IsLogged';
+import { useContext } from 'react';
+import { AuthContext } from '../../context/AuthContext';
+import Logo from '../menu/Logo';
+import Menu from '../menu/Menu';
+import { ContainerHeader } from './Header.styles';
 
 function Header() {
-  
-  const navigate = useNavigate();
 
-  const Logout = () => {
-    navigate('/login')
-    localStorage.removeItem('token')
-  }
+  const {isToken} = useContext<any>(AuthContext)
 
   return (
-    <>
-      <div>Header</div>
-      { (IsLogged()) ? 
-          <button onClick={() => Logout()}>Logout</button>
-        :
-        null
-      } 
-       
-    </>
+    <ContainerHeader>  
+      {isToken ?
+      (<>
+        <Logo/>
+        <Menu/>
+      </>)  
+      : null
+    }
+    
+    </ContainerHeader>
   )
 }
 

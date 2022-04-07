@@ -1,53 +1,64 @@
-import { Formik, Field, Form, FormikHelpers, useFormik } from "formik"
-import { useContext } from "react"
+import { Formik, Field, Form, FormikHelpers } from "formik"
+import { useContext, useState } from "react"
 import { AuthContext } from "../../context/AuthContext"
 import { LoginDTO } from "../../model/LoginDTO"
-import { LoginTitle, ContainerLogin, DivForm } from './Login.styles'
+import { LoginTitle, ContainerLogin, DivForm, BtnLogin, LoginSubtitle, ImgLogin, StyledInput, Label, ShowPassword } from './Login.styles'
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom'
 import IsLogged from '../../components/IsLogged'
+import imgLogin from '../../images/logo-vemser.png'
 
 function Login() {
 
   const navigate = useNavigate();
+  const {handleLogin} = useContext<any>(AuthContext)
+  const [typePass, setShowPass] = useState<string>('password')
   
   useEffect(()=> {
-    if (IsLogged()) navigate('/home')
+    if (IsLogged()) navigate('/')
   },[])
 
-  const {handleLogin} = useContext<any>(AuthContext)
+  const showPass = () => {
+
+    if(typePass==='password') {
+      setShowPass('text')
+    } else {
+      setShowPass('password')
+    }
+  }
 
   return (
-    <ContainerLogin>
-      <LoginTitle>Login Vem Ser</LoginTitle>
-      <Formik
-        initialValues={{
-          usuario:'',
-          senha:''
-        }}
-        onSubmit={(
-          values: LoginDTO,
-          {setSubmitting, resetForm} : FormikHelpers<LoginDTO>,
-        ) => {
-          handleLogin(values)
-          setSubmitting(false)
-          resetForm()
-        }}
-      >
-        <Form>
-          <DivForm>
-            <label htmlFor="usuario">Usuário</label>
-            <Field name="usuario" id="usuario" placeholder="Digite o nome do usuário"/>
-          </DivForm>
-          <DivForm>
-            <label htmlFor="senha">Senha</label>
-            <Field name="senha" id="senha" type="password" placeholder="Informe sua senha"/>
-          </DivForm>
-          <button type="submit">Login</button>
-        </Form>
-
-      </Formik>
-    </ContainerLogin>
+      <ContainerLogin>
+        <Formik
+          initialValues={{
+            usuario:'',
+            senha:''
+          }}
+          onSubmit={(
+            values: LoginDTO,
+            {setSubmitting, resetForm} : FormikHelpers<LoginDTO>,
+          ) => {
+            handleLogin(values)
+            setSubmitting(false)
+            resetForm()
+          }}
+        >
+          <Form>
+              <DivForm>
+                <ImgLogin src={imgLogin} />
+                <LoginTitle>Log In Vem Ser</LoginTitle>
+                <LoginSubtitle>Insira seu usuário e senha abaixo</LoginSubtitle>
+                <Label htmlFor="usuario">Usuário</Label>
+                <Field as={StyledInput} name="usuario" id="usuario" placeholder="Informe usuário"/>
+                <Label htmlFor="senha">Senha</Label>
+                <Field as={StyledInput} name="senha" id="senha" type={typePass} placeholder="Informe senha"/>
+                <a href="#"><ShowPassword onClick={() => showPass()}></ShowPassword></a>
+                <BtnLogin type="submit">Log In</BtnLogin>
+                <LoginSubtitle>Não tem uma conta? <a href="#">Sign up</a></LoginSubtitle>
+              </DivForm>
+          </Form>
+        </Formik>
+      </ContainerLogin>
   )
 }
 
