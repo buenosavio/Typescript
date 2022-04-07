@@ -67,8 +67,11 @@ export const StyledInput = styled.input`
     /* border: 0 none; */
     outline: 0;
     transition: 2s;
-    border-color: #aeaeb1 ;
-    
+    border-color: #aeaeb1 ; 
+  }
+  ::-webkit-input-placeholder {
+    font-family: 'Mulish', sans-serif;
+    font-size: 14px;
   }
 `;
 
