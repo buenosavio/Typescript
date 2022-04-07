@@ -1,8 +1,11 @@
-import React from 'react'
+import { Image, Container } from "./NotFound.styles"
+
 
 function NotFound() {
   return (
-    <div>NotFound</div>
+    <Container>
+      <Image />
+    </Container>
   )
 }
 
