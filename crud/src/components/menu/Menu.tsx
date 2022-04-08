@@ -16,7 +16,7 @@ function Menu() {
             <div>
               <li><LinkStyled to='/'>Home</LinkStyled></li>
               <li><LinkStyled to='/users'>Usuários</LinkStyled></li>
-              <li><LinkStyled to='/address'>Endereço</LinkStyled></li>
+              <li><LinkStyled to='/address'>Endereços</LinkStyled></li>
              </div>
              <BtnLogout onClick={() => handleLogout()}>Logout</BtnLogout>
             </>) 

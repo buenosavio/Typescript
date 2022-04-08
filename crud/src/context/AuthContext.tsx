@@ -1,14 +1,12 @@
 import { LoginDTO } from "../model/LoginDTO";
-import { createContext, FC, useEffect, useState } from "react";
+import { createContext, FC, ReactNode, useEffect, useState } from "react";
 import api from "../api";
 import { useNavigate } from "react-router-dom";
 import IsLogged from "../components/IsLogged";
-import Loading from "../components/loading/Loading";
-import Error from "../components/error/Error";
 
 export const AuthContext = createContext({})
 
-const AuthProvider: FC<any> = ({ children }) => {
+const AuthProvider: FC<ReactNode> = ({ children }) => {
     
     const [loginOk, setLogin] = useState(false); 
     const [loading, setLoading] = useState<boolean>(true);
@@ -24,9 +22,9 @@ const AuthProvider: FC<any> = ({ children }) => {
         }
     },[]);
 
-    const handleLogin = async (user: LoginDTO) => {
+    const handleLogin = async (values: LoginDTO) => {
         try {
-          const {data} = await api.post('/auth', user);
+          const {data} = await api.post('/auth', values);
           console.log('=> ', data)
           setLogin(true)
           localStorage.setItem('token', data)

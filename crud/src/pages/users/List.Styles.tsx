@@ -5,6 +5,9 @@ export const Card = styled.div`
   width: 1100px;
   display: grid ;
   grid-template-columns: 30% 20% 20% 30%;
+  :hover {
+    background-color: #DFE0EB;
+  }
 `;
 
 export const TitleCard = styled.div`
