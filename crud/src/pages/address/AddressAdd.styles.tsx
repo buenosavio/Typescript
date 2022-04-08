@@ -90,3 +90,9 @@ export const ButtonToBack = styled.button`
     transition: 2s;
   }
 `;
+
+export const TextDanger = styled.p`
+  color: red;
+  margin-top: -10px;
+  font-size: 15px;
+`
