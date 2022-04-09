@@ -24,7 +24,7 @@ function Address() {
       <ContainerCards>
         <Inline>
           <TitlePage>Endereços</TitlePage>
-          <Button onClick={() => registerAddress()}>Cadastrar</Button>
+          <Button onClick={() => registerAddress()}>Cadastrar Endrereço</Button>
         </Inline>
           <TitleCard>
             <Text>Logradouro</Text>
