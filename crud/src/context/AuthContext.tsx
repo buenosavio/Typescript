@@ -1,15 +1,15 @@
 import { LoginDTO } from "../model/LoginDTO";
 import { createContext, FC, ReactNode, useEffect, useState } from "react";
-import api from "../api";
 import { useNavigate } from "react-router-dom";
+import { Notify } from 'notiflix/build/notiflix-notify-aio';
+
 import IsLogged from "../components/IsLogged";
-import Loading from "../components/loading/Loading";
+import api from "../api";
 
 export const AuthContext = createContext({})
 
 const AuthProvider: FC<ReactNode> = ({ children }) => {
     
-    const [loginOk, setLogin] = useState(false); 
     const [loadingLogin, setLoadingLogin] = useState<boolean>(false);
     const [isToken, setIsToken] = useState(false);
     
@@ -17,7 +17,7 @@ const AuthProvider: FC<ReactNode> = ({ children }) => {
 
     useEffect(() => {
         if(IsLogged()) {
-            setIsToken(true);            
+            setIsToken(true);   
         } else {
             navigate('/login')
         }
@@ -26,16 +26,12 @@ const AuthProvider: FC<ReactNode> = ({ children }) => {
     const handleLogin = async (values: LoginDTO) => {
         try {
           const {data} = await api.post('/auth', values);
-          console.log('=> ', data)
-          setLogin(true)
-          localStorage.setItem('token', data)
-          api.defaults.headers.common['authorization'] = data;
-          setLoadingLogin(true);
+          localStorage.setItem('token', data)            
           setIsToken(true)
+          api.defaults.headers.common['Authorization'] = data;
           navigate('/')          
         } catch (error) {
-           alert('login inválido')
-           console.log(error)
+          Notify.failure('Login inválido!');    
         }
     }
 
@@ -45,10 +41,6 @@ const AuthProvider: FC<ReactNode> = ({ children }) => {
         setIsToken(false)
     }
 
-    if (loadingLogin) {
-        // return <Loading />
-    }
-   
     return (
         <AuthContext.Provider value={{handleLogin, isToken, handleLogout, loadingLogin, setLoadingLogin}}>
             {children}

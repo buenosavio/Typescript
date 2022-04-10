@@ -25,6 +25,7 @@ const AddressProvider: FC<ReactNode> = ({children}) => {
       setAddress(data)
       setError(false)
       setLoading(false)
+      console.log(data)
     } catch (error) {
       setLoading(false)
       setError(true)
