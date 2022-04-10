@@ -1,14 +1,11 @@
 import { useContext, useEffect } from "react"
 import Loading from "../../components/loading/Loading"
 import { AddressContext } from "../../context/AddressContext"
-import { AuthContext } from "../../context/AuthContext"
 import { UsersContext } from "../../context/UsersContext"
 import { Container, ContainerCards, Info, TitlePage } from "./Home.styles"
 
 function Home() {
 
-  
-  const {loadingLogin, setLoadingLogin} = useContext<any>(AuthContext)
   const {getPeople, people, loading} = useContext<any>(UsersContext)
   const {handleAddress, address} = useContext<any>(AddressContext)
 

@@ -23,17 +23,11 @@ function AddressAdd() {
  
 
   const navigate = useNavigate();
-  const {saveAddress, updateAddress, button, setButton, cep, setCep,  tipo, setTipo,  logradouro, setLogradouro,  numero, setNumero,  complemento, setComplemento,  bairro, setBairro,  localidade, setLocalidade,  estado, setEstado,  pais, setPais} = useContext<any>(AddressContext)
-   
-  const formatCPF = (cpfzin:any) => {
-    const cpfNew = cpfzin.replace(/([\d]{2})([\d]{3})([\d]{3})/,"$1.$2-$3")
-    return(cpfNew)
-  }
+  const {saveAddress, updateAddress, button, toUpdated } = useContext<any>(AddressContext)
   
   const getAddress = async (values: AddressGetDTO, setFieldValue: any) => {   
-    formatCPF(values.cep)
     try {
-      const {data} = await axios.get(`https://viacep.com.br/ws/${values.cep}/json/`);
+      const {data} = await axios.get(`https://viacep.com.br/ws/${values.cep.replaceAll('.','').replaceAll('-','')}/json/`);
       setFieldValue('logradouro', data.logradouro)
       setFieldValue('complemento', data.complemento)
       setFieldValue('bairro', data.bairro)
@@ -48,15 +42,15 @@ function AddressAdd() {
     <>
     <Formik
     initialValues={{
-      cep: cep,
-      tipo: tipo,
-      logradouro: logradouro,
-      numero: numero,
-      complemento: complemento,
-      bairro: bairro,
-      localidade: localidade,
-      uf: estado,
-      pais: pais,
+      cep: toUpdated?.cep,
+      tipo: toUpdated?.tipo,
+      logradouro: toUpdated?.logradouro,
+      numero: toUpdated?.numero,
+      complemento: toUpdated?.complemento,
+      bairro: toUpdated?.bairro,
+      localidade: toUpdated?.cidade,
+      uf: toUpdated?.estado,
+      pais: toUpdated?.pais,
     }}
     validationSchema={AddressSchema}
     onSubmit={(

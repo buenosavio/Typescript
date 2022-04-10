@@ -11,7 +11,7 @@ import moment from 'moment';
 const UserAdd = () => {
 
   const UserSchema = yup.object().shape({
-    nome: yup.string().required('Obrigatório').matches(/^[aA-zZ\s]+$/, 'Permitido apenas letras'),
+    nome: yup.string().required('Obrigatório').matches(/^[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ'\s]+$/, 'Permitido apenas letras'),
     dataNascimento: yup.string().required('Obrigatório').min(8,'Informe data válida no formato DD/MM/YYYY'),
     cpf: yup.string().required('Obrigatório').min(10, 'Mínimo de 11 dígitos'),
     email: yup.string().email('Informe um e-mail válido').required('Obrigatório')

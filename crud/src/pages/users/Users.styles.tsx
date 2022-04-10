@@ -63,4 +63,5 @@ export const ContainerCards = styled.div`
   border-radius: 8px;
   margin-left: 17%;
   margin-top: 1%;
+  margin-bottom: 1%;
 `;

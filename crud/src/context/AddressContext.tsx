@@ -14,16 +14,8 @@ const AddressProvider: FC<ReactNode> = ({children}) => {
   const [loading, setLoading] = useState<boolean>(true);
   const [address, setAddress] = useState<AddressPostDTO[]>()
   const [button, setButton] = useState<string>('Cadastrar')
-  const [cep, setCep] = useState<string>()
-  const [tipo, setTipo] = useState<string>()
-  const [logradouro, setLogradouro] = useState<string>()
-  const [numero, setNumero] = useState<string>()
-  const [complemento, setComplemento] = useState<string>()
-  const [bairro, setBairro] = useState<string>()
-  const [localidade, setLocalidade] = useState<string>()
-  const [estado, setEstado] = useState<string>()
-  const [pais, setPais] = useState<string>()
   const [idEndereco, setIdEndereco] = useState<number>()
+  const [toUpdated, setToUpdated] = useState<AddressPostDTO[]>();
 
   const navigate = useNavigate();
 
@@ -61,25 +53,17 @@ const AddressProvider: FC<ReactNode> = ({children}) => {
   }
 
   const loadAddress = (id: number | undefined) => {
-    const toUpdate = address?.find(e => e.idEndereco == id)
-    console.log(toUpdate)
+    const toUpdate: any = address?.find(e => e.idEndereco == id)
+    setToUpdated(toUpdate)
     navigate('/atz-add')
     setButton('Atualizar')
-    setCep(toUpdate?.cep)
-    setTipo(toUpdate?.tipo)
-    setLogradouro(toUpdate?.logradouro)
-    setNumero(toUpdate?.numero)
-    setComplemento(toUpdate?.complemento)
-    setLocalidade(toUpdate?.cidade)
-    setEstado(toUpdate?.estado)
-    setPais(toUpdate?.pais)
     setIdEndereco(toUpdate?.idEndereco)
+    console.log(toUpdated)
   }
 
   const updateAddress = async (values: AddressGetDTO) => {
-    console.log(values.tipo, idEndereco)
     const updatedAddress = {
-      cep: values.cep,
+      cep: values.cep.replaceAll('.','').replaceAll('-',''),
       cidade: values.localidade,
       complemento: values.complemento,
       estado: values.uf,
@@ -105,13 +89,13 @@ const AddressProvider: FC<ReactNode> = ({children}) => {
       logradouro: values.logradouro,
       numero: values.numero,
       complemento: values.complemento,
-      cep: values.cep,
+      cep: values.cep.replaceAll('.','').replaceAll('-',''),
       cidade: values.localidade,
       estado: values.uf,
       pais: values.pais
     } 
     try {
-      await api.post('/endereco/451', address)
+      await api.post('/endereco/826', address)
       navigate('/address')
       Notify.success('Endereço Cadastrado!');
     } catch (error) {
@@ -123,19 +107,12 @@ const AddressProvider: FC<ReactNode> = ({children}) => {
   const registerAddress = () => {
     navigate('/atz-add')
     setButton('Cadastrar')
-    setCep('')
-    setTipo('')
-    setLogradouro('')
-    setNumero('')
-    setComplemento('')
-    setLocalidade('')
-    setEstado('')
-    setPais('')
+    setToUpdated(undefined)
   }
 
     return(
       
-        <AddressContext.Provider value={{error, loading, handleAddress, address, setAddress, deleteAddress, updateAddress, loadAddress, saveAddress, button, setButton, registerAddress, cep, setCep,  tipo, setTipo,  logradouro, setLogradouro,  numero, setNumero,  complemento, setComplemento,  bairro, setBairro,  localidade, setLocalidade,  estado, setEstado,  pais, setPais}}>
+        <AddressContext.Provider value={{toUpdated, setToUpdated, error, loading, handleAddress, address, setAddress, deleteAddress, updateAddress, loadAddress, saveAddress, button, setButton, registerAddress}}>
             {children}
         </AddressContext.Provider>
       
