@@ -3,20 +3,21 @@ import { createContext, FC, ReactNode, useEffect, useState } from "react";
 import api from "../api";
 import { useNavigate } from "react-router-dom";
 import IsLogged from "../components/IsLogged";
+import Loading from "../components/loading/Loading";
 
 export const AuthContext = createContext({})
 
 const AuthProvider: FC<ReactNode> = ({ children }) => {
     
     const [loginOk, setLogin] = useState(false); 
-    const [loading, setLoading] = useState<boolean>(true);
+    const [loadingLogin, setLoadingLogin] = useState<boolean>(false);
     const [isToken, setIsToken] = useState(false);
     
     const navigate = useNavigate();
 
     useEffect(() => {
         if(IsLogged()) {
-            setIsToken(true);
+            setIsToken(true);            
         } else {
             navigate('/login')
         }
@@ -29,7 +30,7 @@ const AuthProvider: FC<ReactNode> = ({ children }) => {
           setLogin(true)
           localStorage.setItem('token', data)
           api.defaults.headers.common['authorization'] = data;
-          setLoading(false);
+          setLoadingLogin(true);
           setIsToken(true)
           navigate('/')          
         } catch (error) {
@@ -44,12 +45,12 @@ const AuthProvider: FC<ReactNode> = ({ children }) => {
         setIsToken(false)
     }
 
-    if (loading) {
-        // return <Loading/>
+    if (loadingLogin) {
+        // return <Loading />
     }
    
     return (
-        <AuthContext.Provider value={{handleLogin, isToken, handleLogout, loading, setLoading}}>
+        <AuthContext.Provider value={{handleLogin, isToken, handleLogout, loadingLogin, setLoadingLogin}}>
             {children}
         </AuthContext.Provider>
     )

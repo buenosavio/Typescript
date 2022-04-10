@@ -1,7 +1,7 @@
 export interface UsersDTO {
+        idPessoa?: number;
         cpf?: string;
         dataNascimento?: string;
         email?: string;
-        idPessoa?: number;
         nome?: string;
-}
+}[]

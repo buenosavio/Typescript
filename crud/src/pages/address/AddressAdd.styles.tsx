@@ -19,25 +19,6 @@ export const Dados = styled.div`
   padding: 20px;
 `;
 
-export const StyledInput = styled.input`
-  width: 316px;
-  height: 40px;
-  border: 1px solid #F0F1F7;
-  border-radius: 8px;
-  box-sizing: border-box;
-  margin-bottom: 10px;
-  :focus {
-    box-shadow: 0 0 0 0;
-    outline: 0;
-    transition: 2s;
-    border-color: #aeaeb1 ; 
-  }
-  ::-webkit-input-placeholder {
-    font-family: 'Mulish', sans-serif;
-    font-size: 14px;
-  }
-`;
-
 export const StyledField = styled.select`
   width: 316px;
   height: 40px;

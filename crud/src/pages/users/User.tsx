@@ -1,22 +1,27 @@
-import { Key, ReactChild, ReactFragment, ReactPortal, useContext, useEffect, useState } from 'react'
+import { Key, ReactChild, ReactFragment, ReactPortal, useContext, useEffect } from 'react'
 import { UsersContext } from '../../context/UsersContext'
 import Loading from '../../components/loading/Loading';
 import Error from '../../components/error/Error';
 import moment from 'moment';
 import {Container, Card, Text, ButtonDanger, ButtonAtz, ContainerCards} from './Users.styles'
 import { TitlePage, Button, Inline, TitleCard } from '../../App.styles';
-import { useNavigate } from 'react-router-dom';
 
 
 function User() {
 
-  const navigate = useNavigate();
-
-  const {getPeople, people, showUser, deleteUser, registerUser} = useContext<any>(UsersContext)
+  const {getPeople, people, showUser, deleteUser, registerUser, loading, error} = useContext<any>(UsersContext)
 
   useEffect(() => {
     getPeople()
   },[])
+
+  if (loading) {
+    return <Loading/>
+  }
+
+  if (error) { 
+    return <Error />
+  }
 
   return (
     <div>

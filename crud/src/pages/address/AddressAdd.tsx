@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { Formik, Field, Form, FormikHelpers, useFormikContext } from 'formik';
-import {Container, StyledInput, StyledField, TextDanger, Button, ButtonToBack, Dados} from './AddressAdd.styles'
+import {Container, StyledField, TextDanger, Button, ButtonToBack, Dados} from './AddressAdd.styles'
+import { StyledInput } from '../../App.styles';
 import {AddressGetDTO} from '../../model/AddressGetDTO'
 import { useNavigate } from 'react-router-dom';
 import { useContext } from 'react';
@@ -37,7 +38,7 @@ function AddressAdd() {
       setFieldValue('complemento', data.complemento)
       setFieldValue('bairro', data.bairro)
       setFieldValue('localidade', data.localidade)
-      setFieldValue('uf', data.uf)
+      setFieldValue('uf', data.uf)    
     } catch (error) {
       console.log(error)
     }
@@ -76,7 +77,7 @@ function AddressAdd() {
       <Container>
         <Dados>
           <label htmlFor="cep">Informe seu CEP</label>
-          <Field as={StyledInput}  id="cep" name="cep" placeholder="Informe o CEP" onBlur={() => getAddress(props.values, props.setFieldValue)}/>    
+          <Field as={StyledInput} mask="99.999-999" id="cep" name="cep" placeholder="Informe o CEP" onBlur={() => getAddress(props.values, props.setFieldValue)}/>    
           {props.errors.cep && props.touched.cep ?  <TextDanger>{props.errors.cep}</TextDanger> : null}
           <Field as={StyledField} id="tipo" name="tipo">
             <option value="" id="tipo"></option>

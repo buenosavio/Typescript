@@ -4,21 +4,31 @@ import { useNavigate } from 'react-router-dom';
 import { StyledInput, TextDanger, ButtonToBack, Button, Container, Dados, TitlePage } from '../../App.styles';
 import { UsersContext } from '../../context/UsersContext';
 import {UsersDTO} from '../../model/UsersDTO'
+import * as yup from 'yup';
+import moment from 'moment';
+
 
 const UserAdd = () => {
-    
+
+  const UserSchema = yup.object().shape({
+    nome: yup.string().required('Obrigatório').matches(/^[aA-zZ\s]+$/, 'Permitido apenas letras'),
+    dataNascimento: yup.string().required('Obrigatório').min(8,'Informe data válida no formato DD/MM/YYYY'),
+    cpf: yup.string().required('Obrigatório').min(10, 'Mínimo de 11 dígitos'),
+    email: yup.string().email('Informe um e-mail válido').required('Obrigatório')
+  });
     const navigate = useNavigate();
-    const {button, insertUser, updateUser} = useContext<any>(UsersContext)
+    const {button, insertUser, updateUser,  toUpdated} = useContext<any>(UsersContext)
     
     return (
         <>
         <Formik
         initialValues={{
-          nome: '',
-          dataNascimento: '',
-          cpf:'',
-          email:'',
+          nome: toUpdated?.nome,
+          dataNascimento: moment(toUpdated?.dataNascimento,'YYYY-MM-DD').format('DD/MM/YYYY'),          
+          cpf: toUpdated?.cpf,
+          email: toUpdated?.email,
         }}
+        validationSchema={UserSchema}
         onSubmit={(
           values: UsersDTO,
           { setSubmitting }: FormikHelpers<UsersDTO>
@@ -41,10 +51,10 @@ const UserAdd = () => {
               <Field as={StyledInput}  id="nome" name="nome" placeholder="Nome" />    
               {props.errors.nome && props.touched.nome ?  <TextDanger>{props.errors.nome}</TextDanger> : null}                 
     
-              <Field as={StyledInput} id="dataNascimento" name="dataNascimento" placeholder="Data de Nascimento" />  
+              <Field as={StyledInput} mask='99/99/9999' id="dataNascimento" name="dataNascimento" placeholder="Data de Nascimento" />  
               {props.errors.dataNascimento && props.touched.dataNascimento ? (<TextDanger>{props.errors.dataNascimento}</TextDanger>) : null}  
     
-              <Field as={StyledInput} id="cpf" name="cpf" placeholder="CPF" /> 
+              <Field as={StyledInput} mask="999.999.999-99" id="cpf" name="cpf" placeholder="CPF"/> 
               {props.errors.cpf && props.touched.cpf ? (<TextDanger>{props.errors.cpf}</TextDanger>) : null}       
     
               <Field as={StyledInput} id="email" name="email" placeholder="E-mail" />        

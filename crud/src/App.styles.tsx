@@ -1,6 +1,7 @@
 import styled from "styled-components";
+import InputMask from "react-input-mask";
 
-export const StyledInput = styled.input`
+export const StyledInput = styled(InputMask)`
   width: 316px;
   height: 40px;
   border: 1px solid #F0F1F7;
@@ -93,3 +94,4 @@ export const Inline = styled.div`
   align-items: center;
   justify-content: space-between;
 `;
+
