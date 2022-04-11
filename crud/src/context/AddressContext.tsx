@@ -1,10 +1,10 @@
 import {FC, ReactNode, createContext, useState } from "react";
-import api from "../api";
 import { AddressPostDTO } from "../model/AddressPostDTO";
 import { AddressGetDTO } from "../model/AddressGetDTO";
 import { useNavigate } from "react-router-dom";
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import { Confirm } from 'notiflix/build/notiflix-confirm-aio';
+import api from "../api";
 
 export const AddressContext = createContext({})
 
@@ -81,15 +81,15 @@ const AddressProvider: FC<ReactNode> = ({children}) => {
       Notify.failure('Erro ao atualizar!');
     }
     handleAddress()
-    setFieldValues('cep',' ')
-    setFieldValues("tipo", ' ')
-    setFieldValues("logradouro", ' ')
-    setFieldValues("numero", ' ')
-    setFieldValues("complemento", ' ')
-    setFieldValues("bairro", ' ')
-    setFieldValues("localidade", ' ')
-    setFieldValues("uf", ' ')
-    setFieldValues("pais", ' ')
+    setFieldValues('cep','')
+    setFieldValues("tipo", '')
+    setFieldValues("logradouro", '')
+    setFieldValues("numero", '')
+    setFieldValues("complemento", '')
+    setFieldValues("bairro", '')
+    setFieldValues("localidade", '')
+    setFieldValues("uf", '')
+    setFieldValues("pais", '')
   }
 
   const saveAddress = async (values: AddressGetDTO) => {  

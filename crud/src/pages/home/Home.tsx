@@ -18,17 +18,17 @@ function Home() {
     return (<Loading />)
   }
   
-  let totalResidencial = Object.keys(address.filter((b: { tipo: string }) => (b.tipo === 'RESIDENCIAL'))).length
-  let totalComercial = Object.keys(address.filter((a: { tipo: string }) => (a.tipo === 'COMERCIAL'))).length
-  let totalFora = Object.keys(address.filter((c: { estado: string }) => (c.estado != 'RS'))).length
+  // let totalResidencial = Object.keys(address.filter((b: { tipo: string }) => (b.tipo === 'RESIDENCIAL'))).length
+  // let totalComercial = Object.keys(address.filter((a: { tipo: string }) => (a.tipo === 'COMERCIAL'))).length
+  // let totalFora = Object.keys(address.filter((c: { estado: string }) => (c.estado != 'RS'))).length
 
   return (
      <Container>
-       <BigContainerCard>
+       {/* <BigContainerCard>
         <TitlePageIcons>Tipo de Endereço</TitlePageIcons>
         <InfoDetalhe><Residencial/>{`${totalResidencial}`}</InfoDetalhe>      
         <InfoDetalhe><Comercial/>{`${totalComercial}`}</InfoDetalhe>        
-      </BigContainerCard>
+      </BigContainerCard> */}
       <ContainerCards>
         <TitlePage>Total de Endereços</TitlePage>
         <Info>{address ? Object.keys(address).length : <Info>Loading...</Info>}</Info>      
@@ -37,10 +37,10 @@ function Home() {
         <TitlePage>Total de Pessoas</TitlePage>
         <Info>{people ? Object.keys(people).length : <Info>Loading...</Info>}</Info>      
       </ContainerCards>
-      <ContainerCards>
+      {/* <ContainerCards>
         <TitlePage>Total fora do RS</TitlePage>
         <Info>{totalFora}</Info>      
-      </ContainerCards>   
+      </ContainerCards>    */}
        
      </Container>
   )

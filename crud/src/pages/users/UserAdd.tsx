@@ -7,7 +7,6 @@ import {UsersDTO} from '../../model/UsersDTO'
 
 import * as yup from 'yup';
 import moment from 'moment';
-import { StyledInputnoformat } from './Users.styles';
 
 const UserAdd = () => {
 
@@ -50,8 +49,7 @@ const UserAdd = () => {
           <Container>
             <Dados>
 
-              <TitlePage>Usuários</TitlePage>
-              <StyledInputnoformat as={StyledInput}  id="nome" name="nome" placeholder="Nome" value={props.values.nome} onChange={props.handleChange} onBlur={props.handleBlur}/>
+              <TitlePage>Usuários</TitlePage>              
               <Field as={StyledInput}  id="nome" name="nome" placeholder="Nome" />    
               {props.errors.nome && props.touched.nome ?  <TextDanger>{props.errors.nome}</TextDanger> : null}                 
     
