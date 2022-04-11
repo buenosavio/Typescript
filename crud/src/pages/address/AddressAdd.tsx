@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import { useContext } from 'react';
 import { AddressContext } from '../../context/AddressContext';
 import * as yup from 'yup';
+import api from '../../api';
 
 function AddressAdd() {
 
@@ -23,7 +24,7 @@ function AddressAdd() {
  
 
   const navigate = useNavigate();
-  const {saveAddress, updateAddress, button, toUpdated } = useContext<any>(AddressContext)
+  const {saveAddress, updateAddress, button, toUpdated, idEndereco, storageFunction } = useContext<any>(AddressContext)
   
   const getAddress = async (values: AddressGetDTO, setFieldValue: any) => {   
     try {
@@ -33,6 +34,15 @@ function AddressAdd() {
       setFieldValue('bairro', data.bairro)
       setFieldValue('localidade', data.localidade)
       setFieldValue('uf', data.uf)    
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  const getData = async (setFieldValue: any) => {
+    try {
+      const {data} = await api.get(`/endereco/${idEndereco}`);
+      setFieldValue('nome', data.nome)
     } catch (error) {
       console.log(error)
     }
@@ -66,12 +76,12 @@ function AddressAdd() {
       }
     }}
     >
-    {props => (
+    {props => (      
     <Form>
       <Container>
         <Dados>
           <label htmlFor="cep">Informe seu CEP</label>
-          <Field as={StyledInput} mask="99.999-999" id="cep" name="cep" placeholder="Informe o CEP" onBlur={() => getAddress(props.values, props.setFieldValue)}/>    
+          <Field as={StyledInput} mask="99.999-999" id="cep" name="cep" placeholder="Informe o CEP" value={props.values.cep} onBlur={() => getAddress(props.values, props.setFieldValue)}/>    
           {props.errors.cep && props.touched.cep ?  <TextDanger>{props.errors.cep}</TextDanger> : null}
           <Field as={StyledField} id="tipo" name="tipo">
             <option value="" id="tipo"></option>

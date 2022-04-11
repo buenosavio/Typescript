@@ -40,8 +40,7 @@ function Home() {
       <ContainerCards>
         <TitlePage>Total fora do RS</TitlePage>
         <Info>{totalFora}</Info>      
-      </ContainerCards>
-      
+      </ContainerCards>   
        
      </Container>
   )

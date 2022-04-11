@@ -1,12 +1,14 @@
 import moment from "moment";
-import { createContext, FC, ReactNode, useState } from "react"
+import { createContext, FC, ReactNode, useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom";
 import api from "../api";
 import { UsersDTO } from "../model/UsersDTO";
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import { Confirm } from 'notiflix/build/notiflix-confirm-aio';
+import { useFormikContext } from "formik";
 
 export const UsersContext = createContext({})
+
 
 const UsersProvider: FC<ReactNode> = ({children}) => {
 
@@ -51,14 +53,20 @@ const UsersProvider: FC<ReactNode> = ({children}) => {
         
     }
 
-    const showUser = (id: number) => {
-        const toUpdate: any = people?.find(e => (e.idPessoa == id))
-        console.log(toUpdate)
-        setIdPessoa(toUpdate?.idPessoa)
-        setToUpdated(toUpdate)
+    const loadUser = async (id: number, setFieldValue:any) => {
+        setIdPessoa(id)
         setButton('Atualizar')
-        navigate('/user-add-atz')
-    }
+        try {
+          const {data} = await api.get(`pessoa/{idPessoa}?idPessoa=${id}`);
+          setFieldValue("nome", data.nome);
+          setFieldValue("email", data.email);
+          setFieldValue("dataNascimento", moment(data.dataNascimento, "YYYY-MM-DD").format("DD/MM/YYYY"));
+          setFieldValue("cpf", data.cpf);  
+        } catch (error) {
+          console.log(error)
+        }
+        
+      }
 
     const updateUser = (values: UsersDTO) => {
         const newValues: UsersDTO = {
@@ -105,7 +113,7 @@ const UsersProvider: FC<ReactNode> = ({children}) => {
     }
 
     return (
-        <UsersContext.Provider value={{toUpdated,  people, loading, error, getPeople, button, deleteUser, updateUser, registerUser, insertUser, showUser}}>
+        <UsersContext.Provider value={{loadUser, toUpdated,  people, loading, error, getPeople, button, setButton, deleteUser, updateUser, registerUser, insertUser}}>
             {children}
         </UsersContext.Provider>
     )

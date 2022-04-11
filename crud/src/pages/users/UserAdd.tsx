@@ -1,12 +1,13 @@
 import { Formik, Field, Form, FormikHelpers, useFormikContext } from 'formik';
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { StyledInput, TextDanger, ButtonToBack, Button, Container, Dados, TitlePage } from '../../App.styles';
 import { UsersContext } from '../../context/UsersContext';
 import {UsersDTO} from '../../model/UsersDTO'
+
 import * as yup from 'yup';
 import moment from 'moment';
-
+import { StyledInputnoformat } from './Users.styles';
 
 const UserAdd = () => {
 
@@ -17,7 +18,9 @@ const UserAdd = () => {
     email: yup.string().email('Informe um e-mail válido').required('Obrigatório')
   });
     const navigate = useNavigate();
-    const {button, insertUser, updateUser,  toUpdated} = useContext<any>(UsersContext)
+    const {button, insertUser, updateUser,  toUpdated, showUser} = useContext<any>(UsersContext)
+
+    
     
     return (
         <>
@@ -25,8 +28,8 @@ const UserAdd = () => {
         initialValues={{
           nome: toUpdated?.nome,
           dataNascimento: moment(toUpdated?.dataNascimento,'YYYY-MM-DD').format('DD/MM/YYYY'),          
-          cpf: toUpdated?.cpf,
-          email: toUpdated?.email,
+          cpf: toUpdated?.cpf,          
+          email: toUpdated?.email,                    
         }}
         validationSchema={UserSchema}
         onSubmit={(
@@ -43,11 +46,12 @@ const UserAdd = () => {
         }}
         >
         {props => (
-        <Form>
+        <Form>      
           <Container>
             <Dados>
 
               <TitlePage>Usuários</TitlePage>
+              <StyledInputnoformat as={StyledInput}  id="nome" name="nome" placeholder="Nome" value={props.values.nome} onChange={props.handleChange} onBlur={props.handleBlur}/>
               <Field as={StyledInput}  id="nome" name="nome" placeholder="Nome" />    
               {props.errors.nome && props.touched.nome ?  <TextDanger>{props.errors.nome}</TextDanger> : null}                 
     

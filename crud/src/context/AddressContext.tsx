@@ -59,10 +59,9 @@ const AddressProvider: FC<ReactNode> = ({children}) => {
     navigate('/atz-add')
     setButton('Atualizar')
     setIdEndereco(toUpdate?.idEndereco)
-    console.log(toUpdated)
   }
 
-  const updateAddress = async (values: AddressGetDTO) => {
+  const updateAddress = async (values: AddressGetDTO, setFieldValues: any) => {
     const updatedAddress = {
       cep: values.cep.replaceAll('.','').replaceAll('-',''),
       cidade: values.localidade,
@@ -81,7 +80,16 @@ const AddressProvider: FC<ReactNode> = ({children}) => {
       console.log(error)
       Notify.failure('Erro ao atualizar!');
     }
-    navigate('/address')
+    handleAddress()
+    setFieldValues('cep',' ')
+    setFieldValues("tipo", ' ')
+    setFieldValues("logradouro", ' ')
+    setFieldValues("numero", ' ')
+    setFieldValues("complemento", ' ')
+    setFieldValues("bairro", ' ')
+    setFieldValues("localidade", ' ')
+    setFieldValues("uf", ' ')
+    setFieldValues("pais", ' ')
   }
 
   const saveAddress = async (values: AddressGetDTO) => {  
@@ -113,7 +121,7 @@ const AddressProvider: FC<ReactNode> = ({children}) => {
 
     return(
       
-        <AddressContext.Provider value={{toUpdated, setToUpdated, error, loading, handleAddress, address, setAddress, deleteAddress, updateAddress, loadAddress, saveAddress, button, setButton, registerAddress}}>
+        <AddressContext.Provider value={{idEndereco, setIdEndereco, toUpdated, setToUpdated, error, loading, handleAddress, address, setAddress, deleteAddress, updateAddress, loadAddress, saveAddress, button, setButton, registerAddress}}>
             {children}
         </AddressContext.Provider>
       

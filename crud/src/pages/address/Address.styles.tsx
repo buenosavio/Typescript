@@ -99,3 +99,18 @@ export const ButtonAtz = styled.button`
     transition: 2s;
   }
 `;
+
+export const StyledField = styled.select`
+  width: 316px;
+  height: 40px;
+  border: 1px solid #F0F1F7;
+  border-radius: 8px;
+  box-sizing: border-box;
+  margin-bottom: 10px;
+  :focus {
+    box-shadow: 0 0 0 0;
+    outline: 0;
+    transition: 2s;
+    border-color: #aeaeb1 ; 
+  }
+`;

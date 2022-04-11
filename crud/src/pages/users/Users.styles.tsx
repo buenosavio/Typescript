@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import InputMask from "react-input-mask";
 
 export const Container = styled.div`
   display: flex;
@@ -64,4 +65,55 @@ export const ContainerCards = styled.div`
   margin-left: 17%;
   margin-top: 1%;
   margin-bottom: 1%;
+`;
+
+export const Dados = styled.div`
+  display: flex ;
+  align-items: center;
+  flex-direction: column;
+  border: 1px solid #DFE0EB;  
+  background-color: #FFFFFF;
+  box-sizing: border-box;
+  border-radius: 8px;
+  padding: 20px;
+  margin-left: 45%;
+  margin-top: 1%;
+`;
+
+export const StyledInputnoformat = styled.input`
+  width: 316px;
+  height: 40px;
+  border: 1px solid #F0F1F7;
+  border-radius: 8px;
+  box-sizing: border-box;
+  margin-bottom: 10px;
+  :focus {
+    box-shadow: 0 0 0 0;
+    outline: 0;
+    transition: 2s;
+    border-color: #aeaeb1 ; 
+  }
+  ::-webkit-input-placeholder {
+    font-family: 'Mulish', sans-serif;
+    font-size: 14px;
+  }
+`;
+
+export const StyledInput = styled(InputMask)`
+  width: 316px;
+  height: 40px;
+  border: 1px solid #F0F1F7;
+  border-radius: 8px;
+  box-sizing: border-box;
+  margin-bottom: 10px;
+  :focus {
+    box-shadow: 0 0 0 0;
+    outline: 0;
+    transition: 2s;
+    border-color: #aeaeb1 ; 
+  }
+  ::-webkit-input-placeholder {
+    font-family: 'Mulish', sans-serif;
+    font-size: 14px;
+  }
 `;
